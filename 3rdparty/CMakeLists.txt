@@ -1,14 +1,11 @@
 project(qnanopainter)
 
-find_package(
-    Qt5
-COMPONENTS
-    Quick
-REQUIRED
-)
+find_package(Qt5 COMPONENTS Quick REQUIRED)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+set(BUILD_GLES_BACKEND TRUE)
 
 add_library(
     qnanopainter
@@ -26,10 +23,10 @@ STATIC
     qnanopainter/libqnanopainter/qnanoquickitem.cpp
     qnanopainter/libqnanopainter/qnanoquickitempainter.cpp
     qnanopainter/libqnanopainter/nanovg/nanovg.c
-    $<$<OR:$<BOOL:${ANDROID}>,$<BOOL:${IOS}>,$<BOOL:${WIN32}>>:qnanopainter/libqnanopainter/private/qnanobackendgles2.cpp>
-    $<$<OR:$<BOOL:${ANDROID}>,$<BOOL:${IOS}>,$<BOOL:${WIN32}>>:qnanopainter/libqnanopainter/private/qnanobackendgles3.cpp>
-    $<$<NOT:$<BOOL:${ANDROID}>>:qnanopainter/libqnanopainter/private/qnanobackendgl2.cpp>
-    $<$<NOT:$<BOOL:${ANDROID}>>:qnanopainter/libqnanopainter/private/qnanobackendgl3.cpp>
+    $<$<BOOL:${BUILD_GLES_BACKEND}>:qnanopainter/libqnanopainter/private/qnanobackendgles2.cpp>
+    $<$<BOOL:${BUILD_GLES_BACKEND}>:qnanopainter/libqnanopainter/private/qnanobackendgles3.cpp>
+    $<$<BOOL:${BUILD_GL_BACKEND}>:qnanopainter/libqnanopainter/private/qnanobackendgl2.cpp>
+    $<$<BOOL:${BUILD_GL_BACKEND}>:qnanopainter/libqnanopainter/private/qnanobackendgl3.cpp>
 )
 
 target_compile_features(
@@ -40,17 +37,17 @@ PUBLIC
 
 target_compile_definitions(
     qnanopainter
-PRIVATE
-    QNANO_QT_GL_INCLUDE
-    QNANO_ENABLE_GLES3
+PUBLIC
+    NANOVG_GLES2
+    QNANO_BUILD_GLES_BACKENDS
 )
 
 target_link_libraries(
     qnanopainter
 PRIVATE
     Qt5::Quick
-    $<$<BOOL:${WIN32}>:Qt5::Gui_GLESv2>
-    $<$<NOT:$<BOOL:${WIN32}>>:GL>
+    $<$<BOOL:${BUILD_GLES_BACKEND}>:GLESv2>
+    $<$<BOOL:${BUILD_GL_BACKEND}>:Gl>
 )
 
 target_include_directories(
