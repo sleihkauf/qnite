@@ -38,6 +38,8 @@ BasicAxes {
     property bool rotateBottomLabels: false
     property int bottomLabelHeight: 0
 
+    property alias bottomLabelsVisible: __bottomlabels.visible
+
     TextMetrics {
         id: __metrics
         font: __plotarea.labelFont
