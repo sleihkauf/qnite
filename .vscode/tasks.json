@@ -1,0 +1,23 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Conan",
+            "type": "shell",
+            "command": "conan create . local/stable",
+            "options": {
+                "cwd": "${workspaceFolder}/..",
+                "env": {
+                    "Qt5_DIR": "/home/stefan/Qt/5.12.8/gcc_64/lib/cmake/Qt5",
+                    "Qt5Quick_DIR": "/home/stefan/Qt/5.12.8/gcc_64/lib/cmake/Qt5Quick"
+                }
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}

@@ -41,6 +41,7 @@ compile_commands.json
 # other
 *.pyc
 .tmp
+*txt.user
 
 build/
 

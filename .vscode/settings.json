@@ -1,0 +1,21 @@
+{
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "C_Cpp.autoAddFileAssociations": false,
+    "files.associations": {
+        "*.h": "cpp",
+        "*.inc": "c",
+        "*.cpp": "cpp",
+        "*.c": "c",
+        "*.py": "py",
+    },
+    "cmake.configureOnOpen": true,
+    "cmake.generator": "Makefile",
+    "cmake.preferredGenerators": [
+        "Makefile"
+    ],
+    "cmake.configureSettings": {
+        "Qt5_DIR": "/home/stefan/Qt/5.12.8/gcc_64/lib/cmake/Qt5",
+        "Qt5Quick_DIR": "/home/stefan/Qt/5.12.8/gcc_64/lib/cmake/Qt5Quick",
+        "BUILD_SHARED_LIBS": "True"
+    }
+}
