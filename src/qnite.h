@@ -33,12 +33,12 @@ static void registerQniteQmlTypes() {
   qmlRegisterType<QniteXYArtist>(uri, 1, 0, "XYArtist");
   qmlRegisterType<QniteAxes>(uri, 1, 0, "BasicAxes");
   qmlRegisterUncreatableType<QniteAxis>(
-      uri, 1, 0, "Axis", "Cannot create obects of base type Axis");
+      uri, 1, 0, "Axis", "Cannot create objects of base type Axis");
   qmlRegisterType<QniteLinearAxis>(uri, 1, 0, "LinearAxis");
   qmlRegisterType<QniteCategoryAxis>(uri, 1, 0, "CategoryAxis");
   qmlRegisterType<QniteAxisTick>(uri, 1, 0, "AxisTick");
   qmlRegisterUncreatableType<QnitePen>(uri, 1, 0, "Pen",
-                                       "Cannot create obects of type Pen");
+                                       "Cannot create objects of type Pen");
   qmlRegisterType<QniteBar>(uri, 1, 0, "Bar");
   qmlRegisterType<QniteCircle>(uri, 1, 0, "Circle");
   qmlRegisterType<QniteLine>(uri, 1, 0, "Line");
