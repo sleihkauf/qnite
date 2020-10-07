@@ -24,6 +24,8 @@ add_library(
     qnitelinearmapper.cpp
     qniteticker.cpp
     qnitelinearticker.cpp
+    qnitetimeaxis.cpp
+    qnitecustomticker.cpp
     items/qnitebar.cpp
     items/qnitebarpainter.cpp
     items/qnitecircle.cpp
