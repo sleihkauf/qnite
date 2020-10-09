@@ -3,8 +3,9 @@
 #include "qnitecustomticker.h"
 #include "qnitelinearmapper.h"
 #include "qnitelinearticker.h"
+#include "qniteaxes.h"
 
-QniteTimeAxis::QniteTimeAxis(QQuickItem *parent) : QniteLinearAxis(parent) {
+QniteTimeAxis::QniteTimeAxis(QQuickItem *parent) : QniteAxis(parent) {
   setMapper(new QniteLinearMapper(this));
   setTicker(new QniteCustomTicker(this));
 
@@ -34,10 +35,16 @@ void QniteTimeAxis::processData() {
                                       m_flip);
     }
 
-    for (auto i = 0; i < maj.size(); ++i) {
-      QString strLabel = m_currentTime.toString("hh:mm:ss");
-      m_labels.push_back(strLabel);
+    QniteCustomTicker* pTicker = dynamic_cast<QniteCustomTicker*>(m_ticker);
+
+    m_labels.push_back("");
+    for (auto i = 1; i < maj.size() - 1; ++i) {
+      if(pTicker->sourceTimes().size()) {
+        QString strLabel = pTicker->sourceTimes()[i].toString("hh:mm");
+        m_labels.push_back(strLabel);
+      }
     }
+    m_labels.push_back("");
 
     // maps the axis position
     m_position =
@@ -48,13 +55,38 @@ void QniteTimeAxis::processData() {
   emit majorTicksChanged();
 }
 
-void QniteTimeAxis::timeChanged() { processData(); }
+void QniteTimeAxis::timeChanged() {
+  if(m_ticker != nullptr) {
+      dynamic_cast<QniteCustomTicker*>(m_ticker)->setCurrentTime(m_currentTime);
+      processData();
+    }
+}
 
 QDateTime QniteTimeAxis::currentTime() const { return m_currentTime; }
 
 void QniteTimeAxis::setCurrentTime(const QDateTime &time) {
   if (m_currentTime != time) {
     m_currentTime = time;
+
     emit currentTimeChanged();
+  }
+}
+
+int QniteTimeAxis::visibleTimeSpan() const
+{
+  return m_visibleTimeSpan;
+}
+
+void QniteTimeAxis::setVisibleTimeSpan(int sec)
+{
+  if(m_visibleTimeSpan != sec)
+  {
+    m_visibleTimeSpan = sec;
+
+    if(m_ticker != nullptr) {
+      dynamic_cast<QniteCustomTicker*>(m_ticker)->setVisibleTimeSpan(m_visibleTimeSpan);
+    }
+
+    emit visibleTimeSpanChanged();
   }
 }
