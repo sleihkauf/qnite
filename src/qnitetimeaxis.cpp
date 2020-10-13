@@ -1,13 +1,13 @@
 #include "qnitetimeaxis.h"
+#include "qniteaxes.h"
 #include "qniteclipper.h"
-#include "qnitecustomticker.h"
 #include "qnitelinearmapper.h"
 #include "qnitelinearticker.h"
-#include "qniteaxes.h"
+#include "qnitetimeticker.h"
 
 QniteTimeAxis::QniteTimeAxis(QQuickItem *parent) : QniteAxis(parent) {
   setMapper(new QniteLinearMapper(this));
-  setTicker(new QniteCustomTicker(this));
+  setTicker(new QniteTimeTicker(this));
 
   connect(this, &QniteTimeAxis::currentTimeChanged, this,
           &QniteTimeAxis::timeChanged);
@@ -35,11 +35,11 @@ void QniteTimeAxis::processData() {
                                       m_flip);
     }
 
-    QniteCustomTicker* pTicker = dynamic_cast<QniteCustomTicker*>(m_ticker);
+    QniteTimeTicker *pTicker = dynamic_cast<QniteTimeTicker *>(m_ticker);
 
     m_labels.push_back("");
     for (auto i = 1; i < maj.size() - 1; ++i) {
-      if(pTicker->sourceTimes().size()) {
+      if (pTicker->sourceTimes().size()) {
         QString strLabel = pTicker->sourceTimes()[i].toString("hh:mm");
         m_labels.push_back(strLabel);
       }
@@ -56,10 +56,10 @@ void QniteTimeAxis::processData() {
 }
 
 void QniteTimeAxis::timeChanged() {
-  if(m_ticker != nullptr) {
-      dynamic_cast<QniteCustomTicker*>(m_ticker)->setCurrentTime(m_currentTime);
-      processData();
-    }
+  if (m_ticker != nullptr) {
+    dynamic_cast<QniteTimeTicker *>(m_ticker)->setCurrentTime(m_currentTime);
+    processData();
+  }
 }
 
 QDateTime QniteTimeAxis::currentTime() const { return m_currentTime; }
@@ -72,21 +72,29 @@ void QniteTimeAxis::setCurrentTime(const QDateTime &time) {
   }
 }
 
-int QniteTimeAxis::visibleTimeSpan() const
-{
-  return m_visibleTimeSpan;
-}
+int QniteTimeAxis::visibleTimeSpan() const { return m_visibleTimeSpan; }
 
-void QniteTimeAxis::setVisibleTimeSpan(int sec)
-{
-  if(m_visibleTimeSpan != sec)
-  {
+void QniteTimeAxis::setVisibleTimeSpan(int sec) {
+  if (m_visibleTimeSpan != sec) {
     m_visibleTimeSpan = sec;
 
-    if(m_ticker != nullptr) {
-      dynamic_cast<QniteCustomTicker*>(m_ticker)->setVisibleTimeSpan(m_visibleTimeSpan);
+    if (m_ticker != nullptr) {
+      dynamic_cast<QniteTimeTicker *>(m_ticker)->setVisibleTimeSpan(
+          m_visibleTimeSpan);
     }
 
     emit visibleTimeSpanChanged();
+  }
+}
+
+int QniteTimeAxis::tickSpanSec() const { return m_tickSpanSec; }
+
+void QniteTimeAxis::setTickSpanSec(int sec) {
+  if (m_tickSpanSec != sec) {
+
+    if (m_ticker != nullptr) {
+      dynamic_cast<QniteTimeTicker *>(m_ticker)->setTickSpanSec(sec);
+      emit tickSpanSecChanged();
+    }
   }
 }

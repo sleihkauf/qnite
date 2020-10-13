@@ -19,6 +19,7 @@
 #include "qnitespline.h"
 #include "qniteticker.h"
 #include "qnitetimeaxis.h"
+#include "qnitetimeticker.h"
 #include "qnitetool.h"
 #include "qnitexyartist.h"
 #include "qnitezoomtool.h"

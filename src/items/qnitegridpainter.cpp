@@ -11,7 +11,7 @@ Q_LOGGING_CATEGORY(qnitegridpainter, "qnite.grid.painter")
 QniteGridPainter::QniteGridPainter() : QNanoQuickItemPainter{} {}
 
 void QniteGridPainter::synchronize(QNanoQuickItem *item) {
-  qCDebug(qnitegridpainter) << "synchronizing grid";
+  // qCDebug(qnitegridpainter) << "synchronizing grid";
 
   auto grid = static_cast<QniteGrid *>(item);
   if (grid != Q_NULLPTR) {
@@ -31,7 +31,7 @@ void QniteGridPainter::synchronize(QNanoQuickItem *item) {
 }
 
 void QniteGridPainter::paint(QNanoPainter *painter) {
-  qCDebug(qnitegridpainter) << "painting grid" << m_xs << m_ys;
+  // qCDebug(qnitegridpainter) << "painting grid" << m_xs << m_ys;
 
   painter->setStrokeStyle(QNanoColor::fromQColor(m_pen.stroke));
   painter->setFillStyle(QNanoColor::fromQColor(m_pen.fill));

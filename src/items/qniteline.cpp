@@ -73,6 +73,6 @@ void QniteLine::setDrawStepped(bool drawStepped) {
 }
 
 QNanoQuickItemPainter *QniteLine::createItemPainter() const {
-  qCDebug(qniteline) << "creating item painter";
+  // qCDebug(qniteline) << "creating item painter";
   return new QniteLinePainter();
 }

@@ -13,7 +13,7 @@ QniteLinePainter::QniteLinePainter()
       m_drawStepped{false} {}
 
 void QniteLinePainter::synchronize(QNanoQuickItem *item) {
-  qCDebug(qnitelinepainter) << "synchronizing qniteline";
+  // qCDebug(qnitelinepainter) << "synchronizing qniteline";
 
   auto lineItem = static_cast<QniteLine *>(item);
   if (lineItem != Q_NULLPTR) {
@@ -46,7 +46,7 @@ void QniteLinePainter::synchronize(QNanoQuickItem *item) {
 }
 
 void QniteLinePainter::paint(QNanoPainter *painter) {
-  qCDebug(qnitelinepainter) << "painting qniteline";
+  // qCDebug(qnitelinepainter) << "painting qniteline";
 
   auto dataSize = m_xs.size();
   if (dataSize < 2)

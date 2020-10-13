@@ -10,7 +10,11 @@ class QniteTimeAxis : public QniteAxis {
   Q_PROPERTY(QDateTime currentTime READ currentTime WRITE setCurrentTime NOTIFY
                  currentTimeChanged)
 
-  Q_PROPERTY(int visibleTimeSpan READ visibleTimeSpan WRITE setVisibleTimeSpan NOTIFY visibleTimeSpanChanged)
+  Q_PROPERTY(int visibleTimeSpan READ visibleTimeSpan WRITE setVisibleTimeSpan
+                 NOTIFY visibleTimeSpanChanged)
+
+  Q_PROPERTY(int tickSpanSec READ tickSpanSec WRITE setTickSpanSec NOTIFY
+                 tickSpanSecChanged)
 
 public:
   explicit QniteTimeAxis(QQuickItem *parent = 0);
@@ -22,9 +26,13 @@ public:
   int visibleTimeSpan() const;
   void setVisibleTimeSpan(int sec);
 
+  int tickSpanSec() const;
+  void setTickSpanSec(int sec);
+
 Q_SIGNALS:
   void currentTimeChanged();
   void visibleTimeSpanChanged();
+  void tickSpanSecChanged();
 
 public Q_SLOTS:
   virtual void processData() override;
@@ -33,6 +41,9 @@ public Q_SLOTS:
 private:
   QDateTime m_currentTime;
   int m_visibleTimeSpan;
+
+  static constexpr int TickSpanDefault = 300;
+  int m_tickSpanSec{TickSpanDefault};
 };
 
 #endif // QNITE_TIME_AXIS_H
