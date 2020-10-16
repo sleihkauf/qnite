@@ -91,10 +91,12 @@ int QniteTimeAxis::tickSpanSec() const { return m_tickSpanSec; }
 
 void QniteTimeAxis::setTickSpanSec(int sec) {
   if (m_tickSpanSec != sec) {
+    m_tickSpanSec = sec;
 
     if (m_ticker != nullptr) {
       dynamic_cast<QniteTimeTicker *>(m_ticker)->setTickSpanSec(sec);
-      emit tickSpanSecChanged();
     }
+
+    emit tickSpanSecChanged();
   }
 }

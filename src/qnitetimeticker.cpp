@@ -59,6 +59,7 @@ int QniteTimeTicker::visibleTimeSpan() const { return m_visibleTimeSpan; }
 void QniteTimeTicker::setVisibleTimeSpan(int sec) {
   if (m_visibleTimeSpan != sec) {
     m_visibleTimeSpan = sec;
+    buildTicks();
   }
 }
 
@@ -76,5 +77,6 @@ int QniteTimeTicker::tickSpanSec() const { return m_tickSpanSec; }
 void QniteTimeTicker::setTickSpanSec(int sec) {
   if (m_tickSpanSec != sec) {
     m_tickSpanSec = sec;
+    buildTicks();
   }
 }
