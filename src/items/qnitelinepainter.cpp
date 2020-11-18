@@ -48,7 +48,7 @@ void QniteLinePainter::synchronize(QNanoQuickItem *item) {
 void QniteLinePainter::paint(QNanoPainter *painter) {
   // qCDebug(qnitelinepainter) << "painting qniteline";
 
-  auto dataSize = m_xs.size();
+  auto dataSize = std::min(m_xs.size(), m_ys.size());
   if (dataSize < 2)
     return;
 
