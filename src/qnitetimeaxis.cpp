@@ -11,6 +11,12 @@ QniteTimeAxis::QniteTimeAxis(QQuickItem *parent) : QniteAxis(parent) {
 
   connect(this, &QniteTimeAxis::currentTimeChanged, this,
           &QniteTimeAxis::timeChanged);
+
+  connect(this, &QniteTimeAxis::visibleTimeSpanChanged, this,
+          &QniteTimeAxis::timeChanged);
+
+  connect(this, &QniteTimeAxis::tickSpanSecChanged, this,
+          &QniteTimeAxis::timeChanged);
 }
 
 void QniteTimeAxis::processData() {
